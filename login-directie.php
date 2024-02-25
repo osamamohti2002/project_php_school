@@ -15,7 +15,7 @@ if(isset($_POST['login'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $login = $db->prepare("SELECT * FROM leerlingen WHERE email = ':email' AND pass = ':password'");
+    $login = $database_conection->prepare("SELECT * FROM dicrectie WHERE email = :email AND password = :password");
     $login->bindParam(':email', $email);
     $login->bindParam(':password', $password);
     $login->execute();
@@ -27,8 +27,9 @@ if(isset($_POST['login'])){
     if(count($result) > 0){
         $_SESSION['email'] = $email;
         $_SESSION['password'] = $password;
-        header('location: index.php');
-        exit; // Exit script after redirection
+        header('location: directie/navbar-directie.php');
+        echo "welkom" ;
+  
     } else {
         echo 'email of wachtwoord komt niet overeen';
     }
@@ -38,7 +39,7 @@ if(isset($_POST['login'])){
 
 
 
-    <div class="container">
+<div class="container">
   <h2 class="text-center mt-5">Login</h2>
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-4">

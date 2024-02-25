@@ -8,7 +8,6 @@ $password = "";
 try{
 
 $database_conection = new PDO($dsn, $username, $password);
-echo 'je bent verbonden met database';
 
 }catch(PDOException $e){
     echo 'verbinden met database mislukt ' .  $e->getMessage();
