@@ -4,43 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <title>Document</title>
 </head>
 <body>
-    <?php include 'navbar-directie.php';?>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Contact</h3>
-                    </div>
-                    <div class="card-body">
-                        <form method="post">
-                            <div class="form-group">
-                                <label for="naam">Voor naam</label>
-                                <input type="text" class="form-control" name="first_name" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Achternaam</label>
-                                <input type="text" class="form-control" name="last_name" required>
-                            </div>
-                            <div class="form-group">
-                                <label>email</label>
-                                <input type="email" class="form-control" name="email" required >
-                            </div>
-                            <div class="form-group">
-                                <label>wachtwoord</label>
-                                <input type="password" class="form-control" name="password">
-                            </div>
-                            <div class="form-group">
-                                <label>id </label>
-                                <input type="text" class="form-control" id="telefoonnummer" name="id">
-                            </div>
+    <?php include '../conn.php'; include 'navbar-directie.php';
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="index.php" class="btn btn-danger">Cancel</a>
-                            
+    if(isset($_POST['zoeken'])){
+        $user = $_POST['first_name'];
+        $update = $database_conection->prepare("SELECT * FROM dicrectie WHERE first_name = :user");
+        $update->bindParam('user', $user);
+        $update->execute();
+        header('location:update-directie2.php');
+
+        // Fetch the result
+        $result = $update->fetchAll();
+
+    }
+
     
+    
+    
+    ?>
+
+
+    <div class="container mt-5">
+        <h2>zoek naar een naam</h2>
+        <form method="post">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="first_naam" placeholder="Zoeken" aria-label="Zoekterm" aria-describedby="basic-addon2" required>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" name="zoeken">Zoeken</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
